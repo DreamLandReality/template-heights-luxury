@@ -1,0 +1,210 @@
+---
+export interface Props {
+  data: {
+    eyebrow?: string;
+    heading: string;
+    subtext?: string;
+    submitButton: string;
+    successMessage: string;
+    submissionEndpoint?: string | null;
+    siteToken?: string | null;
+    supabaseAnonKey?: string | null;
+  };
+}
+
+const { data } = Astro.props;
+---
+
+<section class="py-32 px-6 md:px-12 bg-surface relative" id="contact-form" data-dr-section="contact-form">
+  <!-- White strip behind the card -->
+  <div class="absolute top-0 left-0 w-full h-1/2 bg-white pointer-events-none"></div>
+
+  <div class="max-w-[1000px] mx-auto bg-white p-10 md:p-24 shadow-[0_20px_60px_rgba(10,17,24,0.05)] relative z-10">
+
+    <div class="text-center mb-16">
+      {data.eyebrow && (
+        <div
+          class="text-[10px] font-medium tracking-[0.2em] uppercase text-accent mb-4"
+          data-dr-field="eyebrow"
+        >
+          {data.eyebrow}
+        </div>
+      )}
+      <h2
+        class="font-serif text-4xl md:text-5xl mb-4 uppercase"
+        data-dr-field="heading"
+      >
+        {data.heading}
+      </h2>
+      {data.subtext && (
+        <p class="text-muted font-light" data-dr-field="subtext">{data.subtext}</p>
+      )}
+    </div>
+
+    <form
+      class="flex flex-col gap-10"
+      data-endpoint={data.submissionEndpoint || undefined}
+      data-token={data.siteToken || undefined}
+      data-apikey={data.supabaseAnonKey || undefined}
+      data-success={data.successMessage}
+      id="contact-form-el"
+      novalidate
+    >
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
+        <div class="relative">
+          <input
+            type="text"
+            name="firstName"
+            id="c-first-name"
+            class="peer w-full border-b border-border py-2 text-sm outline-none focus:border-primary transition-colors bg-transparent placeholder-transparent"
+            placeholder="First Name"
+          />
+          <label for="c-first-name" class="contact-label absolute left-0 top-2 text-sm text-muted transition-all peer-focus:-top-5 peer-focus:text-[10px] peer-focus:text-primary peer-focus:uppercase peer-focus:tracking-widest peer-valid:-top-5 peer-valid:text-[10px] peer-valid:uppercase peer-valid:tracking-widest">
+            First Name
+          </label>
+        </div>
+        <div class="relative">
+          <input
+            type="text"
+            name="lastName"
+            id="c-last-name"
+            class="peer w-full border-b border-border py-2 text-sm outline-none focus:border-primary transition-colors bg-transparent placeholder-transparent"
+            placeholder="Last Name"
+          />
+          <label for="c-last-name" class="contact-label absolute left-0 top-2 text-sm text-muted transition-all peer-focus:-top-5 peer-focus:text-[10px] peer-focus:text-primary peer-focus:uppercase peer-focus:tracking-widest peer-valid:-top-5 peer-valid:text-[10px] peer-valid:uppercase peer-valid:tracking-widest">
+            Last Name
+          </label>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
+        <div class="relative">
+          <input
+            type="email"
+            name="email"
+            id="c-email"
+            class="peer w-full border-b border-border py-2 text-sm outline-none focus:border-primary transition-colors bg-transparent placeholder-transparent"
+            placeholder="Email Address"
+          />
+          <label for="c-email" class="contact-label absolute left-0 top-2 text-sm text-muted transition-all peer-focus:-top-5 peer-focus:text-[10px] peer-focus:text-primary peer-focus:uppercase peer-focus:tracking-widest peer-valid:-top-5 peer-valid:text-[10px] peer-valid:uppercase peer-valid:tracking-widest">
+            Email Address
+          </label>
+        </div>
+        <div class="relative">
+          <input
+            type="tel"
+            name="phone"
+            id="c-phone"
+            class="peer w-full border-b border-border py-2 text-sm outline-none focus:border-primary transition-colors bg-transparent placeholder-transparent"
+            placeholder="Phone Number"
+          />
+          <label for="c-phone" class="contact-label absolute left-0 top-2 text-sm text-muted transition-all peer-focus:-top-5 peer-focus:text-[10px] peer-focus:text-primary peer-focus:uppercase peer-focus:tracking-widest peer-valid:-top-5 peer-valid:text-[10px] peer-valid:uppercase peer-valid:tracking-widest">
+            Phone Number
+          </label>
+        </div>
+      </div>
+
+      <div class="relative mt-4">
+        <textarea
+          name="message"
+          id="c-message"
+          rows={1}
+          class="peer w-full border-b border-border py-2 text-sm outline-none focus:border-primary transition-colors resize-none bg-transparent placeholder-transparent"
+          placeholder="How can we help you?"
+        ></textarea>
+        <label for="c-message" class="contact-label absolute left-0 top-2 text-sm text-muted transition-all peer-focus:-top-5 peer-focus:text-[10px] peer-focus:text-primary peer-focus:uppercase peer-focus:tracking-widest peer-valid:-top-5 peer-valid:text-[10px] peer-valid:uppercase peer-valid:tracking-widest">
+          How can we help you?
+        </label>
+      </div>
+
+      <!-- Honeypot spam protection -->
+      <div style="position: absolute; left: -9999px;" aria-hidden="true">
+        <input type="text" name="website" tabindex="-1" autocomplete="off" />
+      </div>
+
+      <div class="pt-4 text-center">
+        <button
+          type="submit"
+          class="bg-primary text-white text-[11px] font-medium tracking-[0.2em] uppercase px-12 py-5 hover:bg-accent transition-colors duration-500"
+          data-dr-field="submitButton"
+        >
+          {data.submitButton}
+        </button>
+      </div>
+
+      <p class="form-status text-center text-sm mt-2 text-muted hidden" aria-live="polite"></p>
+    </form>
+
+  </div>
+</section>
+
+<script>
+  const form = document.getElementById('contact-form-el') as HTMLFormElement;
+  if (form) {
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const status = form.querySelector('.form-status') as HTMLElement;
+      const submitBtn = form.querySelector('button[type="submit"]') as HTMLButtonElement;
+      const successMessage = form.dataset.success || 'Thank you. We will be in touch soon.';
+
+      if (status) status.classList.remove('hidden');
+      if (status) status.textContent = 'Sending...';
+      if (submitBtn) submitBtn.disabled = true;
+
+      const formData = new FormData(form);
+
+      // Honeypot check
+      const honeypot = (formData.get('website') as string) || '';
+      if (honeypot.trim() !== '') {
+        setTimeout(() => {
+          if (status) status.textContent = successMessage;
+          if (submitBtn) submitBtn.disabled = false;
+          form.reset();
+        }, 1000);
+        return;
+      }
+
+      const firstName = ((formData.get('firstName') as string) || '').trim();
+      const lastName = ((formData.get('lastName') as string) || '').trim();
+      const data: Record<string, string> = {
+        name: [firstName, lastName].filter(Boolean).join(' '),
+        email: ((formData.get('email') as string) || '').trim(),
+        phone: ((formData.get('phone') as string) || '').trim(),
+        message: ((formData.get('message') as string) || '').trim(),
+        source_url: window.location.href,
+        form_type: 'contact',
+      };
+
+      if (form.dataset.token) data.siteToken = form.dataset.token;
+
+      if (!form.dataset.endpoint) {
+        setTimeout(() => {
+          if (status) status.textContent = 'Form submission is not available in preview mode.';
+          if (submitBtn) submitBtn.disabled = false;
+          form.reset();
+        }, 1000);
+        return;
+      }
+
+      try {
+        const headers: Record<string, string> = { 'Content-Type': 'application/json' };
+        if (form.dataset.apikey) {
+          headers['apikey'] = form.dataset.apikey;
+          headers['Authorization'] = `Bearer ${form.dataset.apikey}`;
+        }
+        const res = await fetch(form.dataset.endpoint, {
+          method: 'POST',
+          headers,
+          body: JSON.stringify(data),
+        });
+        const result = await res.json();
+        if (status) status.textContent = res.ok ? successMessage : (result.error || 'Something went wrong.');
+        if (res.ok) form.reset();
+      } catch {
+        if (status) status.textContent = 'Something went wrong.';
+      } finally {
+        if (submitBtn) submitBtn.disabled = false;
+      }
+    });
+  }
+</script>

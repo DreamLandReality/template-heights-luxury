@@ -1,0 +1,130 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Hero from '../components/Hero.astro';
+import Introduction from '../components/Introduction.astro';
+import MediaShowcase from '../components/MediaShowcase.astro';
+import PriceUnlock from '../components/PriceUnlock.astro';
+import Brochure from '../components/Brochure.astro';
+import Amenities from '../components/Amenities.astro';
+import Testimonials from '../components/Testimonials.astro';
+import ContactForm from '../components/ContactForm.astro';
+import { getSectionData, isSectionEnabled } from '../lib/manifest-loader';
+
+type SeoData = {
+  title?: string;
+  language?: string;
+};
+
+type HeroData = {
+  heroMediaType?: 'image' | 'carousel' | 'video';
+  headline: string;
+  headlineItalic?: string;
+  subtext?: string;
+  backgroundImage?: string;
+  backgroundImageAlt?: string;
+  backgroundImageCarousel?: { src: string; alt: string }[];
+  heroVideo?: string;
+  scrollLabel?: string;
+  mobileLayout?: 'fullscreen' | 'auto';
+  overlayEnabled?: boolean;
+};
+
+type IntroductionData = {
+  eyebrow?: string;
+  heading?: string;
+  body?: string;
+};
+
+type MediaShowcaseData = {
+  eyebrow?: string;
+  heading?: string;
+  mediaType: 'image' | 'video' | 'iframe';
+  mediaFile?: string;
+  mediaAlt?: string;
+  iframeUrl?: string;
+  iframeTitle?: string;
+  caption?: string;
+};
+
+type PriceUnlockData = {
+  previewState?: 'locked' | 'modal' | 'unlocked';
+  eyebrow?: string;
+  heading?: string;
+  subtext?: string;
+  price: string;
+  unlockButtonText?: string;
+  successNote?: string;
+  modalEyebrow?: string;
+  modalHeading?: string;
+  modalSubtext?: string;
+  modalSubmitText?: string;
+  submissionEndpoint?: string | null;
+  siteToken?: string | null;
+  supabaseAnonKey?: string | null;
+};
+
+type BrochureData = {
+  eyebrow?: string;
+  heading?: string;
+  body?: string;
+  buttonText?: string;
+  brochureFile?: string;
+  backgroundImage?: string;
+  backgroundImageAlt?: string;
+};
+
+type AmenitiesData = {
+  eyebrow?: string;
+  heading?: string;
+  subtext?: string;
+  items: {
+    image: string;
+    imageAlt?: string;
+    title: string;
+    description?: string;
+  }[];
+};
+
+type TestimonialsData = {
+  sectionEyebrow?: string;
+  sectionTitle?: string;
+  items: {
+    name: string;
+    photo?: string;
+    text: string;
+    rating: number;
+  }[];
+};
+
+type ContactFormData = {
+  eyebrow?: string;
+  heading: string;
+  subtext?: string;
+  submitButton: string;
+  successMessage: string;
+  submissionEndpoint?: string | null;
+  siteToken?: string | null;
+  supabaseAnonKey?: string | null;
+};
+
+const seoData = getSectionData<SeoData>('seo');
+const heroData = getSectionData<HeroData>('hero');
+const introData = getSectionData<IntroductionData>('introduction');
+const mediaShowcaseData = getSectionData<MediaShowcaseData>('media-showcase');
+const priceUnlockData = getSectionData<PriceUnlockData>('price-unlock');
+const brochureData = getSectionData<BrochureData>('brochure');
+const amenitiesData = getSectionData<AmenitiesData>('amenities');
+const testimonialsData = getSectionData<TestimonialsData>('testimonials');
+const contactFormData = getSectionData<ContactFormData>('contact-form');
+---
+
+<BaseLayout title={seoData.title || 'Luxury Residences'} seo={seoData} transparentNav={true}>
+  {isSectionEnabled('hero') && <Hero data={heroData} />}
+  {isSectionEnabled('introduction') && <Introduction data={introData} />}
+  {isSectionEnabled('media-showcase') && <MediaShowcase data={mediaShowcaseData} />}
+  {isSectionEnabled('price-unlock') && <PriceUnlock data={priceUnlockData} />}
+  {isSectionEnabled('brochure') && <Brochure data={brochureData} />}
+  {isSectionEnabled('amenities') && <Amenities data={amenitiesData} />}
+  {isSectionEnabled('testimonials') && <Testimonials data={testimonialsData} />}
+  {isSectionEnabled('contact-form') && <ContactForm data={contactFormData} />}
+</BaseLayout>

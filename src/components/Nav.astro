@@ -1,0 +1,232 @@
+---
+export interface Props {
+  data: {
+    logoText: string;
+    logoImageUrl?: string;
+    links: { label: string; href: string }[];
+  };
+  transparentNav?: boolean;
+}
+
+const { data, transparentNav = false } = Astro.props;
+const imgSrc = (path: string) => path?.startsWith('http') ? path : `/${path}`;
+---
+
+<nav
+  class={`nav-bar fixed top-0 left-0 w-full z-50 transition-all duration-700 ease-out ${transparentNav ? 'nav-transparent' : 'nav-scrolled'}`}
+  data-dr-section="navigation"
+  id="main-nav"
+  data-is-transparent={String(transparentNav)}
+>
+  <div class="max-w-[1600px] mx-auto flex justify-between items-center px-6 md:px-12 py-5">
+
+    <!-- Logo -->
+    {data.logoImageUrl ? (
+      <a href="/" class="nav-logo flex items-center">
+        <img src={imgSrc(data.logoImageUrl)} alt={data.logoText} class="h-8 w-auto" data-dr-field="logoImageUrl" />
+      </a>
+    ) : (
+      <a href="/" class="nav-logo font-serif text-2xl tracking-widest uppercase transition-colors duration-500">
+        <span data-dr-field="logoText">{data.logoText}</span>
+      </a>
+    )}
+
+    <!-- Desktop Links -->
+    <ul class="hidden lg:flex items-center space-x-10" data-dr-list="links">
+      {data.links.map((link) => (
+        <li data-dr-list-item>
+          <a
+            href={link.href}
+            class="nav-link text-[11px] font-medium tracking-[0.15em] uppercase transition-colors duration-300"
+          >
+            <span data-dr-field="label">{link.label}</span>
+          </a>
+        </li>
+      ))}
+    </ul>
+
+    <!-- Enquire CTA -->
+    <a
+      href="#contact-form"
+      class="nav-cta hidden sm:block text-[11px] font-medium tracking-[0.15em] uppercase px-8 py-3 border transition-all duration-500"
+    >
+      Enquire
+    </a>
+
+    <!-- Mobile Menu Button -->
+    <button
+      class="lg:hidden flex flex-col justify-center items-center w-8 h-8 space-y-[5px] group"
+      id="mobile-menu-btn"
+      aria-label="Toggle navigation menu"
+    >
+      <span class="hamburger-line w-6 h-[1.5px] transition-all duration-300 origin-center"></span>
+      <span class="hamburger-line w-4 h-[1.5px] transition-all duration-300 group-hover:w-6"></span>
+      <span class="hamburger-line w-6 h-[1.5px] transition-all duration-300 origin-center"></span>
+    </button>
+  </div>
+
+  <!-- Mobile Menu Overlay -->
+  <div
+    class="mobile-menu fixed inset-0 z-40 flex flex-col items-center justify-center bg-primary opacity-0 pointer-events-none transition-opacity duration-500"
+    id="mobile-menu"
+  >
+    <ul class="flex flex-col items-center space-y-8" data-dr-list="links">
+      {data.links.map((link, i) => (
+        <li data-dr-list-item class="overflow-hidden">
+          <a
+            href={link.href}
+            class="mobile-link block text-2xl font-serif tracking-[0.2em] uppercase text-white/60 hover:text-white transition-all duration-300"
+            style={`transition-delay: ${i * 80}ms`}
+          >
+            <span data-dr-field="label">{link.label}</span>
+          </a>
+        </li>
+      ))}
+    </ul>
+  </div>
+</nav>
+
+<style>
+  /* Transparent state (over hero) */
+  .nav-bar.nav-transparent {
+    background: transparent;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+  }
+  .nav-bar.nav-transparent .nav-logo { color: #ffffff; }
+  .nav-bar.nav-transparent .nav-link { color: rgba(255, 255, 255, 0.85); }
+  .nav-bar.nav-transparent .nav-link:hover { color: var(--accent); }
+  .nav-bar.nav-transparent .nav-cta {
+    color: #ffffff;
+    border-color: rgba(255, 255, 255, 0.5);
+  }
+  .nav-bar.nav-transparent .nav-cta:hover {
+    background: #ffffff;
+    color: var(--primary);
+  }
+  .nav-bar.nav-transparent .hamburger-line { background: #ffffff; }
+
+  /* Scrolled state */
+  .nav-bar.nav-scrolled {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+    box-shadow: 0 1px 30px rgba(0, 0, 0, 0.04);
+  }
+  .nav-bar.nav-scrolled .nav-logo { color: var(--primary); }
+  .nav-bar.nav-scrolled .nav-link { color: var(--primary); }
+  .nav-bar.nav-scrolled .nav-link:hover { color: var(--accent); }
+  .nav-bar.nav-scrolled .nav-cta {
+    color: var(--primary);
+    border-color: var(--primary);
+  }
+  .nav-bar.nav-scrolled .nav-cta:hover {
+    background: var(--primary);
+    color: #ffffff;
+  }
+  .nav-bar.nav-scrolled .hamburger-line { background: var(--primary); }
+
+  /* Mobile menu */
+  .mobile-menu.open {
+    opacity: 1;
+    pointer-events: auto;
+  }
+  .mobile-link {
+    transform: translateY(20px);
+    opacity: 0;
+    transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+                opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+                color 0.3s ease;
+  }
+  .mobile-menu.open .mobile-link {
+    transform: translateY(0);
+    opacity: 1;
+  }
+
+  /* Hamburger -> X */
+  .nav-bar.menu-open .hamburger-line { background: #ffffff; }
+  .nav-bar.menu-open .hamburger-line:nth-child(1) {
+    transform: translateY(3.25px) rotate(45deg);
+  }
+  .nav-bar.menu-open .hamburger-line:nth-child(2) {
+    opacity: 0;
+    transform: scaleX(0);
+  }
+  .nav-bar.menu-open .hamburger-line:nth-child(3) {
+    transform: translateY(-3.25px) rotate(-45deg);
+  }
+</style>
+
+<script is:inline>
+  (function () {
+    function initNavScroll() {
+      var nav = document.getElementById('main-nav');
+      if (!nav) {
+        if (document.readyState === 'loading') {
+          document.addEventListener('DOMContentLoaded', initNavScroll);
+        }
+        return;
+      }
+
+      var isTransparent = nav.getAttribute('data-is-transparent') === 'true';
+      if (!isTransparent) return;
+
+      var sentinel = document.createElement('div');
+      sentinel.style.cssText = 'position:absolute;top:60px;height:1px;width:100%;pointer-events:none;visibility:hidden';
+      document.body.appendChild(sentinel);
+
+      var observer = new IntersectionObserver(function (entries) {
+        var scrolledPast = !entries[0].isIntersecting;
+        if (scrolledPast) {
+          nav.classList.add('nav-scrolled');
+          nav.classList.remove('nav-transparent');
+        } else {
+          nav.classList.remove('nav-scrolled');
+          nav.classList.add('nav-transparent');
+        }
+      }, { threshold: [0, 1] });
+
+      observer.observe(sentinel);
+    }
+
+    function initMobileMenu() {
+      var nav = document.getElementById('main-nav');
+      var menuBtn = document.getElementById('mobile-menu-btn');
+      var mobileMenu = document.getElementById('mobile-menu');
+
+      if (!nav || !menuBtn || !mobileMenu) {
+        if (document.readyState === 'loading') {
+          document.addEventListener('DOMContentLoaded', initMobileMenu);
+        }
+        return;
+      }
+
+      menuBtn.addEventListener('click', function () {
+        var isOpen = mobileMenu.classList.contains('open');
+        mobileMenu.classList.toggle('open');
+        nav.classList.toggle('menu-open');
+        document.body.style.overflow = isOpen ? '' : 'hidden';
+      });
+
+      mobileMenu.querySelectorAll('a').forEach(function (link) {
+        link.addEventListener('click', function () {
+          mobileMenu.classList.remove('open');
+          nav.classList.remove('menu-open');
+          document.body.style.overflow = '';
+        });
+      });
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', function () {
+        initNavScroll();
+        initMobileMenu();
+      });
+    } else {
+      initNavScroll();
+      initMobileMenu();
+    }
+  })();
+</script>

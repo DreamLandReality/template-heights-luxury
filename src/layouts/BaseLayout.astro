@@ -1,0 +1,82 @@
+---
+import Head from '../components/Head.astro';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+import { getSectionData, isSectionEnabled, getTheme, getStyleOverridesCSS } from '../lib/manifest-loader';
+
+const theme = getTheme();
+const styleOverridesCSS = getStyleOverridesCSS();
+const navData = getSectionData<{
+  logoText: string;
+  logoImageUrl?: string;
+  links: { label: string; href: string }[];
+}>('navigation');
+const footerData = getSectionData<{
+  logoText: string;
+  copyright: string;
+  branding?: string;
+  privacyLabel?: string;
+  termsLabel?: string;
+}>('footer');
+
+export interface Props {
+  title: string;
+  seo: any;
+  transparentNav?: boolean;
+}
+
+const { title, seo, transparentNav = false } = Astro.props;
+---
+
+<!DOCTYPE html>
+<html lang={seo.language || 'en'} data-dr-page-id={Astro.url.pathname}>
+  <Head title={title} seo={seo} />
+  <body class="font-sans antialiased bg-background text-primary selection:bg-accent selection:text-white">
+    <style define:vars={{
+      primary: theme.colors.primary,
+      "primary-foreground": theme.colors.primaryForeground,
+      background: theme.colors.background,
+      surface: theme.colors.surface,
+      muted: theme.colors.muted,
+      border: theme.colors.border,
+      "font-sans": theme.typography.fontSans,
+      "font-serif": theme.typography.fontSerif,
+      radius: theme.radius.base,
+      accent: theme.colors.accent
+    }}>
+      :root {
+        --primary: var(--primary);
+        --primary-foreground: var(--primary-foreground);
+        --background: var(--background);
+        --surface: var(--surface);
+        --muted: var(--muted);
+        --border: var(--border);
+        --font-sans: var(--font-sans);
+        --font-serif: var(--font-serif);
+        --radius: var(--radius);
+        --accent: var(--accent);
+      }
+
+      /* Custom scrollbar */
+      ::-webkit-scrollbar { width: 8px; }
+      ::-webkit-scrollbar-track { background: var(--surface); }
+      ::-webkit-scrollbar-thumb { background: var(--accent); }
+      ::-webkit-scrollbar-thumb:hover { background: color-mix(in srgb, var(--accent), black 20%); }
+    </style>
+
+    {styleOverridesCSS && <style set:html={styleOverridesCSS} />}
+
+    {isSectionEnabled('navigation') && <Nav data={navData} transparentNav={transparentNav} />}
+
+    <main>
+      <slot />
+    </main>
+
+    {isSectionEnabled('footer') && <Footer data={footerData} />}
+
+    <script is:inline src="/preview-runtime.min.js"></script>
+    <script>
+      import '../lib/manifest-injector';
+    </script>
+  </body>
+</html>

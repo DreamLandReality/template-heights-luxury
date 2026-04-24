@@ -1,0 +1,13 @@
+{
+    "id": "heights-luxury",
+    "name": "Heights Luxury",
+    "description": "A premium real estate landing template with navy and gold accents, editorial amenity grid, and price-unlock modal.",
+    "category": "luxury",
+    "buildCommand": "npm run build",
+    "outputDirectory": "dist",
+    "previewUrl": "http://localhost:4321",
+    "previewImage": "",
+    "version": "1.0.0",
+    "sectionCount": 12,
+    "previewRuntimeVersion": "1.0.0"
+}

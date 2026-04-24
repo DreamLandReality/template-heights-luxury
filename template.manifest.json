@@ -1,0 +1,1276 @@
+{
+    "templateId": "heights-luxury",
+    "version": "1.0.0",
+    "assetStorage": {
+        "type": "r2",
+        "bucket": "template-assets",
+        "prefix": "templates/heights-luxury"
+    },
+    "collections": [],
+    "pages": [
+        {
+            "id": "home",
+            "path": "/",
+            "name": "Home",
+            "required": true,
+            "sections": [
+                "hero",
+                "introduction",
+                "media-showcase",
+                "price-unlock",
+                "brochure",
+                "amenities",
+                "testimonials",
+                "contact-form"
+            ]
+        },
+        {
+            "id": "404",
+            "path": "/404",
+            "name": "404 Error",
+            "required": true,
+            "sections": [
+                "error-page"
+            ]
+        }
+    ],
+    "globalSections": [
+        "navigation",
+        "footer",
+        "seo"
+    ],
+    "sections": [
+        {
+            "id": "navigation",
+            "name": "Navigation Bar",
+            "description": "Top navigation with logo and links.",
+            "required": true,
+            "enabled": true,
+            "imageSlots": [
+                "logoImageUrl"
+            ],
+            "schema": {
+                "type": "object",
+                "required": [
+                    "logoText"
+                ],
+                "properties": {
+                    "logoText": {
+                        "type": "string",
+                        "uiLabel": "Logo Text",
+                        "uiSection": "content"
+                    },
+                    "logoImageUrl": {
+                        "type": "string",
+                        "uiLabel": "Logo Image",
+                        "uiWidget": "imageUpload",
+                        "uiSection": "media"
+                    },
+                    "links": {
+                        "type": "array",
+                        "items": {
+                            "type": "object",
+                            "properties": {
+                                "label": {
+                                    "type": "string",
+                                    "uiLabel": "Link Label"
+                                }
+                            }
+                        },
+                        "uiLabel": "Navigation Links",
+                        "uiWidget": "repeater",
+                        "uiSection": "content"
+                    }
+                }
+            },
+            "dataType": "object",
+            "data": {
+                "logoText": "HEIGHTS",
+                "logoImageUrl": "",
+                "links": [
+                    {
+                        "label": "Overview",
+                        "href": "#hero"
+                    },
+                    {
+                        "label": "Virtual Tour",
+                        "href": "#media-showcase"
+                    },
+                    {
+                        "label": "Pricing",
+                        "href": "#price-unlock"
+                    },
+                    {
+                        "label": "Amenities",
+                        "href": "#amenities"
+                    }
+                ]
+            }
+        },
+        {
+            "id": "seo",
+            "name": "SEO & Structured Data",
+            "description": "Meta tags, social sharing image, JSON-LD structured data.",
+            "required": true,
+            "enabled": true,
+            "imageSlots": [
+                "image"
+            ],
+            "schema": {
+                "type": "object",
+                "required": [
+                    "title",
+                    "description"
+                ],
+                "properties": {
+                    "title": {
+                        "type": "string",
+                        "uiLabel": "Page Title",
+                        "uiSection": "content",
+                        "aiHint": "Concise page title under 60 chars: property type + location + key feature"
+                    },
+                    "description": {
+                        "type": "string",
+                        "uiLabel": "Meta Description",
+                        "uiWidget": "textarea",
+                        "uiSection": "content",
+                        "aiHint": "Compelling summary 120-155 chars with price and top amenities"
+                    },
+                    "keywords": {
+                        "type": "array",
+                        "description": "SEO keywords for the property",
+                        "uiLabel": "Keywords",
+                        "items": {
+                            "type": "string"
+                        },
+                        "aiHint": "5-8 keywords: property type, location, unique features, price segment"
+                    },
+                    "image": {
+                        "type": "string",
+                        "uiLabel": "Social Share Image",
+                        "uiWidget": "imageUpload",
+                        "uiSection": "media"
+                    },
+                    "imageAlt": {
+                        "type": "string",
+                        "description": "Alt text for the social sharing image",
+                        "uiLabel": "Social Image Alt Text"
+                    },
+                    "locale": {
+                        "type": "string",
+                        "description": "Locale code (e.g. en_US, en_IN)",
+                        "uiLabel": "Locale"
+                    },
+                    "language": {
+                        "type": "string",
+                        "uiLabel": "Language",
+                        "uiSection": "settings",
+                        "aiHint": "ISO 639-1 language code (e.g. en, hi, ar)"
+                    },
+                    "canonicalUrl": {
+                        "type": "string",
+                        "description": "Canonical URL — injected at deploy time",
+                        "uiLabel": "Canonical URL",
+                        "aiIgnore": true,
+                        "editable": false
+                    },
+                    "metaPixelId": {
+                        "type": "string",
+                        "description": "Meta (Facebook) Pixel ID — numeric ID only, e.g. 1234567890123",
+                        "uiLabel": "Meta Pixel ID",
+                        "uiSection": "settings",
+                        "aiIgnore": true
+                    },
+                    "googleAdsId": {
+                        "type": "string",
+                        "description": "Google Ads Measurement ID — e.g. AW-123456789",
+                        "uiLabel": "Google Ads ID",
+                        "uiSection": "settings",
+                        "aiIgnore": true
+                    },
+                    "structuredData": {
+                        "type": "object",
+                        "description": "JSON-LD structured data fields",
+                        "uiLabel": "Structured Data",
+                        "properties": {
+                            "propertyName": {
+                                "type": "string",
+                                "uiLabel": "Property Name",
+                                "aiHint": "Full property or project name"
+                            },
+                            "propertyType": {
+                                "type": "string",
+                                "uiLabel": "Property Type",
+                                "aiHint": "e.g. Apartment, Villa, Penthouse, Studio, Townhouse"
+                            },
+                            "description": {
+                                "type": "string",
+                                "uiLabel": "Property Description",
+                                "aiHint": "Detailed property description for structured data"
+                            },
+                            "url": {
+                                "type": "string",
+                                "description": "Injected at deploy time",
+                                "uiLabel": "Property URL",
+                                "aiIgnore": true,
+                                "editable": false
+                            },
+                            "datePosted": {
+                                "type": "string",
+                                "description": "Injected at deploy time",
+                                "uiLabel": "Date Posted",
+                                "aiIgnore": true,
+                                "editable": false
+                            },
+                            "priceRange": {
+                                "type": "object",
+                                "uiLabel": "Price Range",
+                                "properties": {
+                                    "low": { "type": "number", "uiLabel": "Low Price" },
+                                    "high": { "type": "number", "uiLabel": "High Price" },
+                                    "currency": {
+                                        "type": "string",
+                                        "uiLabel": "Currency (ISO 4217)",
+                                        "aiHint": "ISO 4217 currency code: INR, AED, USD, SGD, etc."
+                                    }
+                                }
+                            },
+                            "address": {
+                                "type": "object",
+                                "uiLabel": "Address",
+                                "properties": {
+                                    "street": { "type": "string", "uiLabel": "Street Address" },
+                                    "locality": {
+                                        "type": "string",
+                                        "uiLabel": "City / Locality",
+                                        "aiHint": "City or neighborhood name"
+                                    },
+                                    "region": {
+                                        "type": "string",
+                                        "uiLabel": "State / Region",
+                                        "aiHint": "State, emirate, or administrative region"
+                                    },
+                                    "postalCode": { "type": "string", "uiLabel": "Postal Code" },
+                                    "country": {
+                                        "type": "string",
+                                        "uiLabel": "Country (ISO 3166-1)",
+                                        "aiHint": "ISO 3166-1 alpha-2 country code: IN, AE, US, SG, etc."
+                                    }
+                                }
+                            },
+                            "geo": {
+                                "type": "object",
+                                "uiLabel": "Coordinates",
+                                "properties": {
+                                    "latitude": { "type": "number", "uiLabel": "Latitude" },
+                                    "longitude": { "type": "number", "uiLabel": "Longitude" }
+                                }
+                            },
+                            "developer": {
+                                "type": "object",
+                                "uiLabel": "Developer / Agent",
+                                "properties": {
+                                    "name": { "type": "string", "uiLabel": "Developer Name" },
+                                    "url": { "type": "string", "uiLabel": "Developer Website" },
+                                    "logo": { "type": "string", "uiLabel": "Developer Logo URL" }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "dataType": "object",
+            "data": {
+                "title": "The Heights Country Club & Wellness | Emaar",
+                "description": "Discover The Heights Country Club & Wellness — an exclusive sanctuary of refined living by Emaar, where green landscapes form a vibrant and sustainable community.",
+                "keywords": [
+                    "The Heights Country Club",
+                    "Emaar",
+                    "luxury villa",
+                    "Dubai Hills",
+                    "wellness community",
+                    "sustainable living",
+                    "AED 6 million"
+                ],
+                "image": "",
+                "imageAlt": "Aerial view of The Heights Country Club & Wellness by Emaar",
+                "locale": "en_AE",
+                "language": "en",
+                "canonicalUrl": null,
+                "metaPixelId": null,
+                "googleAdsId": null,
+                "structuredData": {
+                    "propertyName": "The Heights Country Club & Wellness",
+                    "propertyType": "Villa",
+                    "description": "An exclusive sanctuary of refined living by Emaar, where green landscapes form a vibrant and sustainable community.",
+                    "url": null,
+                    "datePosted": null,
+                    "priceRange": {
+                        "low": 6720888,
+                        "high": 15000000,
+                        "currency": "AED"
+                    },
+                    "address": {
+                        "street": "",
+                        "locality": "Dubai Hills",
+                        "region": "Dubai",
+                        "postalCode": "",
+                        "country": "AE"
+                    },
+                    "geo": {
+                        "latitude": null,
+                        "longitude": null
+                    },
+                    "developer": {
+                        "name": "Emaar Properties",
+                        "url": "https://www.emaar.com",
+                        "logo": null
+                    }
+                }
+            }
+        },
+        {
+            "id": "hero",
+            "name": "Hero Section",
+            "description": "Full-screen hero with headline, subtext, and background media.",
+            "required": true,
+            "enabled": true,
+            "imageSlots": [
+                "backgroundImage",
+                "src"
+            ],
+            "schema": {
+                "type": "object",
+                "required": [
+                    "headline"
+                ],
+                "properties": {
+                    "heroMediaType": {
+                        "type": "string",
+                        "uiLabel": "Media Type",
+                        "uiWidget": "select",
+                        "uiSection": "media",
+                        "options": [
+                            {
+                                "value": "image",
+                                "label": "Single Image"
+                            },
+                            {
+                                "value": "carousel",
+                                "label": "Carousel"
+                            },
+                            {
+                                "value": "video",
+                                "label": "Video"
+                            }
+                        ],
+                        "uiOrder": 10
+                    },
+                    "headline": {
+                        "type": "string",
+                        "uiLabel": "Headline",
+                        "uiSection": "content"
+                    },
+                    "headlineItalic": {
+                        "type": "string",
+                        "uiLabel": "Headline Italic Part",
+                        "uiSection": "content"
+                    },
+                    "subtext": {
+                        "type": "string",
+                        "uiLabel": "Subtext",
+                        "uiWidget": "textarea",
+                        "uiSection": "content"
+                    },
+                    "backgroundImage": {
+                        "type": "string",
+                        "uiLabel": "Background Image",
+                        "uiWidget": "imageUpload",
+                        "uiShowWhen": {
+                            "sibling": "heroMediaType",
+                            "value": "image"
+                        }
+                    },
+                    "backgroundImageAlt": {
+                        "type": "string",
+                        "uiLabel": "Background Image Alt Text",
+                        "uiShowWhen": {
+                            "sibling": "heroMediaType",
+                            "value": "image"
+                        }
+                    },
+                    "backgroundImageCarousel": {
+                        "type": "array",
+                        "items": {
+                            "type": "object",
+                            "properties": {
+                                "src": {
+                                    "type": "string",
+                                    "uiLabel": "Image",
+                                    "uiWidget": "imageUpload"
+                                },
+                                "alt": {
+                                    "type": "string",
+                                    "uiLabel": "Alt Text"
+                                }
+                            }
+                        },
+                        "uiLabel": "Carousel Images",
+                        "uiWidget": "repeater",
+                        "constraints": {
+                            "minItems": 2,
+                            "maxItems": 10,
+                            "canAdd": true,
+                            "canRemove": true
+                        },
+                        "uiShowWhen": {
+                            "sibling": "heroMediaType",
+                            "value": "carousel"
+                        }
+                    },
+                    "heroVideo": {
+                        "type": "string",
+                        "uiLabel": "Background Video",
+                        "uiWidget": "fileUpload",
+                        "uiShowWhen": {
+                            "sibling": "heroMediaType",
+                            "value": "video"
+                        }
+                    },
+                    "scrollLabel": {
+                        "type": "string",
+                        "uiLabel": "Scroll Indicator Label",
+                        "uiSection": "content"
+                    },
+                    "mobileLayout": {
+                        "type": "string",
+                        "uiLabel": "Mobile Layout",
+                        "uiWidget": "select",
+                        "uiSection": "layout",
+                        "options": [
+                            { "value": "fullscreen", "label": "Full Screen" },
+                            { "value": "auto", "label": "Auto (Content Height)" }
+                        ]
+                    },
+                    "overlayEnabled": {
+                        "type": "boolean",
+                        "uiLabel": "Enable Overlay",
+                        "description": "Dark overlay on hero background for text readability",
+                        "uiSection": "layout"
+                    }
+                }
+            },
+            "styleControls": {
+                "fields": {
+                    "headline": [
+                        {
+                            "type": "slider",
+                            "property": "fontSize",
+                            "label": "Size",
+                            "responsive": true,
+                            "min": 2,
+                            "max": 6,
+                            "step": 0.25,
+                            "unit": "rem",
+                            "default": "3.5rem"
+                        },
+                        {
+                            "type": "buttonGroup",
+                            "property": "fontWeight",
+                            "label": "Weight",
+                            "options": [
+                                { "value": "300", "label": "Light" },
+                                { "value": "400", "label": "Regular" },
+                                { "value": "600", "label": "Semi" }
+                            ],
+                            "default": "300"
+                        },
+                        {
+                            "type": "colorGrid",
+                            "property": "color",
+                            "label": "Text Color",
+                            "presets": [
+                                { "value": "#ffffff", "label": "White" },
+                                { "value": "#e7e5e4", "label": "Light" },
+                                { "value": "#1c1917", "label": "Dark" }
+                            ],
+                            "default": "#ffffff"
+                        }
+                    ],
+                    "subtext": [
+                        {
+                            "type": "slider",
+                            "property": "fontSize",
+                            "label": "Size",
+                            "responsive": true,
+                            "min": 0.75,
+                            "max": 1.5,
+                            "step": 0.125,
+                            "unit": "rem",
+                            "default": "1rem"
+                        },
+                        {
+                            "type": "colorGrid",
+                            "property": "color",
+                            "label": "Text Color",
+                            "presets": [
+                                { "value": "rgba(255,255,255,0.8)", "label": "White" },
+                                { "value": "rgba(255,255,255,0.5)", "label": "Muted" },
+                                { "value": "#1c1917", "label": "Dark" }
+                            ],
+                            "default": "rgba(255,255,255,0.8)"
+                        }
+                    ]
+                }
+            },
+            "dataType": "object",
+            "data": {
+                "heroMediaType": "image",
+                "headline": "A Sanctuary of",
+                "headlineItalic": "Refined Living",
+                "subtext": "Envisioned as an exclusive retreat lifestyle, where green landscapes come together to form a vibrant and sustainable community.",
+                "backgroundImage": "https://pub-da5fe52c12854625bef20ed173f635f1.r2.dev/shared-defaults/default-hero.jpg",
+                "backgroundImageAlt": "The Heights exterior view",
+                "backgroundImageCarousel": [
+                    {
+                        "src": "https://pub-da5fe52c12854625bef20ed173f635f1.r2.dev/shared-defaults/default-hero.jpg",
+                        "alt": "The Heights exterior view"
+                    },
+                    {
+                        "src": "https://pub-da5fe52c12854625bef20ed173f635f1.r2.dev/shared-defaults/default-secondary.jpg",
+                        "alt": "Interior living space"
+                    },
+                    {
+                        "src": "https://pub-da5fe52c12854625bef20ed173f635f1.r2.dev/shared-defaults/default-hero.jpg",
+                        "alt": "Landscape and amenities"
+                    }
+                ],
+                "heroVideo": "https://pub-da5fe52c12854625bef20ed173f635f1.r2.dev/shared-defaults/demo-video.mp4",
+                "scrollLabel": "Scroll to explore",
+                "mobileLayout": "fullscreen",
+                "overlayEnabled": true
+            }
+        },
+        {
+            "id": "introduction",
+            "name": "Introduction",
+            "description": "Two-column vision statement with eyebrow, heading, and body text.",
+            "required": false,
+            "enabled": true,
+            "schema": {
+                "type": "object",
+                "properties": {
+                    "eyebrow": {
+                        "type": "string",
+                        "uiLabel": "Eyebrow Text",
+                        "uiSection": "content"
+                    },
+                    "heading": {
+                        "type": "string",
+                        "uiLabel": "Heading",
+                        "uiSection": "content"
+                    },
+                    "body": {
+                        "type": "string",
+                        "uiLabel": "Body Text",
+                        "uiWidget": "textarea",
+                        "uiSection": "content"
+                    }
+                }
+            },
+            "dataType": "object",
+            "data": {
+                "eyebrow": "The Vision",
+                "heading": "Nature-led living, elevated to an art form.",
+                "body": "The masterplan weaves meandering pathways, lush green spaces, tranquil courtyards, and cascading water features into a harmonious environment that inspires movement, calm, and connection with the outdoors. Integrated nature trails, fitness areas, and meditation spaces support a holistic way of life, designed for those who seek the extraordinary."
+            }
+        },
+        {
+            "id": "media-showcase",
+            "name": "Media Showcase",
+            "description": "Full-width virtual tour section supporting image, video, or iframe embed.",
+            "required": false,
+            "enabled": true,
+            "imageSlots": [
+                "mediaFile"
+            ],
+            "schema": {
+                "type": "object",
+                "properties": {
+                    "eyebrow": {
+                        "type": "string",
+                        "uiLabel": "Eyebrow Text",
+                        "uiSection": "content"
+                    },
+                    "heading": {
+                        "type": "string",
+                        "uiLabel": "Heading",
+                        "uiSection": "content"
+                    },
+                    "mediaType": {
+                        "type": "string",
+                        "uiLabel": "Media Type",
+                        "uiWidget": "select",
+                        "uiSection": "media",
+                        "options": [
+                            {
+                                "value": "image",
+                                "label": "Image"
+                            },
+                            {
+                                "value": "video",
+                                "label": "Video"
+                            },
+                            {
+                                "value": "iframe",
+                                "label": "Embed (YouTube / 360 Tour)"
+                            }
+                        ],
+                        "uiOrder": 10
+                    },
+                    "mediaFile": {
+                        "type": "string",
+                        "uiLabel": "Image or Video File",
+                        "uiWidget": "fileUpload",
+                        "uiShowWhen": {
+                            "sibling": "mediaType",
+                            "value": "image"
+                        }
+                    },
+                    "mediaAlt": {
+                        "type": "string",
+                        "uiLabel": "Image Alt Text",
+                        "uiShowWhen": {
+                            "sibling": "mediaType",
+                            "value": "image"
+                        }
+                    },
+                    "iframeUrl": {
+                        "type": "string",
+                        "uiLabel": "Embed URL (YouTube / 360 Tour)",
+                        "uiShowWhen": {
+                            "sibling": "mediaType",
+                            "value": "iframe"
+                        }
+                    },
+                    "iframeTitle": {
+                        "type": "string",
+                        "uiLabel": "Embed Title (accessibility)",
+                        "uiShowWhen": {
+                            "sibling": "mediaType",
+                            "value": "iframe"
+                        }
+                    },
+                    "caption": {
+                        "type": "string",
+                        "uiLabel": "Caption",
+                        "uiSection": "content"
+                    }
+                }
+            },
+            "dataType": "object",
+            "data": {
+                "eyebrow": "Immersive Experience",
+                "heading": "Virtual Tour",
+                "mediaType": "image",
+                "mediaFile": "https://pub-da5fe52c12854625bef20ed173f635f1.r2.dev/shared-defaults/default-secondary.jpg",
+                "mediaAlt": "Virtual tour of The Heights",
+                "iframeUrl": "",
+                "iframeTitle": "The Heights Virtual Tour",
+                "caption": ""
+            }
+        },
+        {
+            "id": "price-unlock",
+            "name": "Pricing",
+            "description": "Pricing section with a lead-capture modal gate to reveal the property price.",
+            "required": false,
+            "enabled": true,
+            "schema": {
+                "type": "object",
+                "properties": {
+                    "previewState": {
+                        "type": "string",
+                        "uiLabel": "Preview State",
+                        "uiWidget": "select",
+                        "options": [
+                            {
+                                "value": "locked",
+                                "label": "Locked (price blurred, unlock button visible)"
+                            },
+                            {
+                                "value": "modal",
+                                "label": "Modal Open (contact form visible)"
+                            },
+                            {
+                                "value": "unlocked",
+                                "label": "Unlocked (price revealed, success message)"
+                            }
+                        ],
+                        "aiIgnore": true,
+                        "uiOrder": 0
+                    },
+                    "eyebrow": {
+                        "type": "string",
+                        "uiLabel": "Eyebrow Text",
+                        "uiSection": "content"
+                    },
+                    "heading": {
+                        "type": "string",
+                        "uiLabel": "Heading",
+                        "uiSection": "content"
+                    },
+                    "subtext": {
+                        "type": "string",
+                        "uiLabel": "Description",
+                        "uiWidget": "textarea",
+                        "uiSection": "content"
+                    },
+                    "price": {
+                        "type": "string",
+                        "uiLabel": "Price",
+                        "uiSection": "content"
+                    },
+                    "unlockButtonText": {
+                        "type": "string",
+                        "uiLabel": "Unlock Button Text",
+                        "uiSection": "content"
+                    },
+                    "successNote": {
+                        "type": "string",
+                        "uiLabel": "Post-Unlock Note",
+                        "uiWidget": "textarea",
+                        "uiSection": "content"
+                    },
+                    "modalEyebrow": {
+                        "type": "string",
+                        "uiLabel": "Modal Eyebrow",
+                        "uiSection": "content"
+                    },
+                    "modalHeading": {
+                        "type": "string",
+                        "uiLabel": "Modal Heading",
+                        "uiSection": "content"
+                    },
+                    "modalSubtext": {
+                        "type": "string",
+                        "uiLabel": "Modal Description",
+                        "uiWidget": "textarea",
+                        "uiSection": "content"
+                    },
+                    "modalSubmitText": {
+                        "type": "string",
+                        "uiLabel": "Modal Submit Button Text",
+                        "uiSection": "content"
+                    },
+                    "submissionEndpoint": {
+                        "type": "string",
+                        "description": "System Injected \u2014 Supabase Edge Function URL",
+                        "aiIgnore": true
+                    },
+                    "siteToken": {
+                        "type": "string",
+                        "description": "System Injected \u2014 deployment auth token",
+                        "aiIgnore": true
+                    }
+                }
+            },
+            "dataType": "object",
+            "data": {
+                "previewState": "locked",
+                "eyebrow": "Investment",
+                "heading": "Pricing & Floor Plans",
+                "subtext": "Register your interest to receive exclusive access to our detailed pricing, payment plans, and comprehensive floor layouts for all property types.",
+                "price": "AED 6,720,888",
+                "unlockButtonText": "Unlock Price",
+                "successNote": "Our private advisory team has received your request and will contact you shortly with the full brochure and tailored payment plans.",
+                "modalEyebrow": "Exclusive Access",
+                "modalHeading": "Unlock Pricing",
+                "modalSubtext": "Provide your details to instantly reveal exclusive pricing, payment plans, and comprehensive floor layouts.",
+                "modalSubmitText": "Reveal Price",
+                "submissionEndpoint": null,
+                "siteToken": null,
+                "supabaseAnonKey": null
+            }
+        },
+        {
+            "id": "brochure",
+            "name": "Project Brochure",
+            "description": "Split-screen section with an image on one side and a brochure download CTA on the other.",
+            "required": false,
+            "enabled": true,
+            "imageSlots": [
+                "backgroundImage"
+            ],
+            "schema": {
+                "type": "object",
+                "properties": {
+                    "eyebrow": {
+                        "type": "string",
+                        "uiLabel": "Eyebrow Text",
+                        "uiSection": "content"
+                    },
+                    "heading": {
+                        "type": "string",
+                        "uiLabel": "Heading",
+                        "uiSection": "content"
+                    },
+                    "body": {
+                        "type": "string",
+                        "uiLabel": "Body Text",
+                        "uiWidget": "textarea",
+                        "uiSection": "content"
+                    },
+                    "buttonText": {
+                        "type": "string",
+                        "uiLabel": "Button Text",
+                        "uiSection": "content"
+                    },
+                    "brochureFile": {
+                        "type": "string",
+                        "uiLabel": "Brochure PDF",
+                        "uiWidget": "fileUpload",
+                        "uiSection": "media"
+                    },
+                    "backgroundImage": {
+                        "type": "string",
+                        "uiLabel": "Side Image",
+                        "uiWidget": "imageUpload",
+                        "uiSection": "media"
+                    },
+                    "backgroundImageAlt": {
+                        "type": "string",
+                        "uiLabel": "Side Image Alt Text",
+                        "uiSection": "media"
+                    }
+                }
+            },
+            "dataType": "object",
+            "data": {
+                "eyebrow": "Discover More",
+                "heading": "Project Brochure",
+                "body": "Download our comprehensive brochure to explore the masterplan, architectural details, amenities, and lifestyle offerings in exquisite detail.",
+                "buttonText": "Download PDF",
+                "brochureFile": "",
+                "backgroundImage": "https://pub-da5fe52c12854625bef20ed173f635f1.r2.dev/shared-defaults/default-secondary.jpg",
+                "backgroundImageAlt": "Interior of The Heights"
+            }
+        },
+        {
+            "id": "amenities",
+            "name": "Amenities",
+            "description": "Editorial image grid showcasing world-class amenities.",
+            "required": false,
+            "enabled": true,
+            "imageSlots": [
+                "items[*].image"
+            ],
+            "schema": {
+                "type": "object",
+                "properties": {
+                    "eyebrow": {
+                        "type": "string",
+                        "uiLabel": "Eyebrow Text",
+                        "uiSection": "content"
+                    },
+                    "heading": {
+                        "type": "string",
+                        "uiLabel": "Heading",
+                        "uiSection": "content"
+                    },
+                    "subtext": {
+                        "type": "string",
+                        "uiLabel": "Subtext",
+                        "uiWidget": "textarea",
+                        "uiSection": "content"
+                    },
+                    "items": {
+                        "type": "array",
+                        "items": {
+                            "type": "object",
+                            "properties": {
+                                "image": {
+                                    "type": "string",
+                                    "uiLabel": "Image",
+                                    "uiWidget": "imageUpload"
+                                },
+                                "imageAlt": {
+                                    "type": "string",
+                                    "uiLabel": "Image Alt Text"
+                                },
+                                "title": {
+                                    "type": "string",
+                                    "uiLabel": "Title"
+                                },
+                                "description": {
+                                    "type": "string",
+                                    "uiLabel": "Description"
+                                }
+                            }
+                        },
+                        "uiLabel": "Amenity Cards",
+                        "uiWidget": "repeater",
+                        "uiSection": "content"
+                    }
+                }
+            },
+            "dataType": "object",
+            "data": {
+                "eyebrow": "Lifestyle",
+                "heading": "World-Class Amenities",
+                "subtext": "Every detail, from tranquil pathways to vibrant social spaces, is thoughtfully designed to nurture both body and mind.",
+                "items": [
+                    {
+                        "image": "https://pub-da5fe52c12854625bef20ed173f635f1.r2.dev/shared-defaults/default-hero.jpg",
+                        "imageAlt": "Wellness Centre",
+                        "title": "Wellness Centre",
+                        "description": "State-of-the-art facilities for holistic well-being."
+                    },
+                    {
+                        "image": "https://pub-da5fe52c12854625bef20ed173f635f1.r2.dev/shared-defaults/default-secondary.jpg",
+                        "imageAlt": "Private Beach",
+                        "title": "Private Beach",
+                        "description": "Exclusive access to pristine white sands."
+                    },
+                    {
+                        "image": "https://pub-da5fe52c12854625bef20ed173f635f1.r2.dev/shared-defaults/default-hero.jpg",
+                        "imageAlt": "Meditation Garden",
+                        "title": "Meditation Garden",
+                        "description": "Serene spaces designed for mindfulness."
+                    },
+                    {
+                        "image": "https://pub-da5fe52c12854625bef20ed173f635f1.r2.dev/shared-defaults/default-secondary.jpg",
+                        "imageAlt": "Social Terrace",
+                        "title": "Social Terrace",
+                        "description": "Elegant venues for evening gatherings."
+                    }
+                ]
+            }
+        },
+        {
+            "id": "testimonials",
+            "name": "Testimonials",
+            "description": "Client testimonials with photos, names, and ratings.",
+            "required": false,
+            "enabled": false,
+            "imageSlots": [
+                "items.photo"
+            ],
+            "schema": {
+                "type": "object",
+                "required": ["items"],
+                "properties": {
+                    "sectionEyebrow": {
+                        "type": "string",
+                        "uiLabel": "Section Eyebrow",
+                        "uiSection": "content"
+                    },
+                    "sectionTitle": {
+                        "type": "string",
+                        "uiLabel": "Section Title",
+                        "uiSection": "content"
+                    },
+                    "items": {
+                        "type": "array",
+                        "uiLabel": "Testimonials",
+                        "uiWidget": "repeater",
+                        "constraints": {
+                            "maxItems": 10,
+                            "canAdd": true,
+                            "canRemove": true
+                        },
+                        "items": {
+                            "type": "object",
+                            "properties": {
+                                "name": { "type": "string", "uiLabel": "Name" },
+                                "photo": { "type": "string", "uiLabel": "Photo", "uiWidget": "imageUpload" },
+                                "text": { "type": "string", "uiLabel": "Testimonial", "uiWidget": "textarea" },
+                                "rating": { "type": "number", "uiLabel": "Rating (1-5)", "uiWidget": "slider", "min": 1, "max": 5, "step": 1 }
+                            }
+                        }
+                    }
+                }
+            },
+            "dataType": "object",
+            "data": {
+                "sectionEyebrow": "Testimonials",
+                "sectionTitle": "What Our Clients Say",
+                "items": [
+                    {
+                        "name": "Sarah Mitchell",
+                        "photo": null,
+                        "text": "The attention to detail and quality of finishes exceeded all expectations. This is truly luxury living at its finest.",
+                        "rating": 5
+                    },
+                    {
+                        "name": "James Chen",
+                        "photo": null,
+                        "text": "From the first viewing to move-in, the entire experience was seamless. The team's professionalism is unmatched.",
+                        "rating": 5
+                    }
+                ]
+            }
+        },
+        {
+            "id": "contact-form",
+            "name": "Contact Form",
+            "description": "Register interest form for private property advisors.",
+            "required": true,
+            "enabled": true,
+            "schema": {
+                "type": "object",
+                "required": [
+                    "heading"
+                ],
+                "properties": {
+                    "eyebrow": {
+                        "type": "string",
+                        "uiLabel": "Eyebrow Text",
+                        "uiSection": "content"
+                    },
+                    "heading": {
+                        "type": "string",
+                        "uiLabel": "Form Heading",
+                        "uiSection": "content"
+                    },
+                    "subtext": {
+                        "type": "string",
+                        "uiLabel": "Form Subtext",
+                        "uiSection": "content"
+                    },
+                    "submitButton": {
+                        "type": "string",
+                        "uiLabel": "Submit Button Label",
+                        "uiSection": "content"
+                    },
+                    "successMessage": {
+                        "type": "string",
+                        "uiLabel": "Success Message",
+                        "uiSection": "content"
+                    },
+                    "submissionEndpoint": {
+                        "type": "string",
+                        "description": "System Injected \u2014 Supabase Edge Function URL",
+                        "aiIgnore": true
+                    },
+                    "siteToken": {
+                        "type": "string",
+                        "description": "System Injected \u2014 deployment auth token",
+                        "aiIgnore": true
+                    }
+                }
+            },
+            "dataType": "object",
+            "data": {
+                "eyebrow": "Connect",
+                "heading": "Register Interest",
+                "subtext": "Get in touch with our private property advisors.",
+                "submitButton": "Submit Inquiry",
+                "successMessage": "Thank you. Our advisory team will contact you shortly.",
+                "submissionEndpoint": null,
+                "siteToken": null,
+                "supabaseAnonKey": null
+            }
+        },
+        {
+            "id": "footer",
+            "name": "Footer",
+            "description": "Footer with logo, legal links, and branding.",
+            "required": true,
+            "enabled": true,
+            "schema": {
+                "type": "object",
+                "required": [
+                    "logoText",
+                    "copyright"
+                ],
+                "properties": {
+                    "logoText": {
+                        "type": "string",
+                        "uiLabel": "Logo Text",
+                        "uiSection": "content"
+                    },
+                    "copyright": {
+                        "type": "string",
+                        "uiLabel": "Copyright Text",
+                        "uiSection": "content"
+                    },
+                    "branding": {
+                        "type": "string",
+                        "uiLabel": "Branding Text",
+                        "uiSection": "content"
+                    },
+                    "privacyLabel": {
+                        "type": "string",
+                        "uiLabel": "Privacy Policy Label",
+                        "uiSection": "content"
+                    },
+                    "termsLabel": {
+                        "type": "string",
+                        "uiLabel": "Terms of Use Label",
+                        "uiSection": "content"
+                    }
+                }
+            },
+            "dataType": "object",
+            "data": {
+                "logoText": "Emaar",
+                "copyright": "2025 Emaar Properties. All rights reserved.",
+                "branding": "Made by Dream La Reality",
+                "privacyLabel": "Privacy Policy",
+                "termsLabel": "Terms of Use"
+            }
+        },
+        {
+            "id": "error-page",
+            "name": "404 Error Page",
+            "description": "Customizable 404 not found page.",
+            "required": true,
+            "enabled": true,
+            "schema": {
+                "type": "object",
+                "required": [
+                    "errorCode",
+                    "errorTitle"
+                ],
+                "properties": {
+                    "errorCode": {
+                        "type": "string",
+                        "uiLabel": "Error Code",
+                        "uiSection": "content"
+                    },
+                    "errorTitle": {
+                        "type": "string",
+                        "uiLabel": "Title",
+                        "uiSection": "content"
+                    },
+                    "errorMessage": {
+                        "type": "string",
+                        "uiLabel": "Message",
+                        "uiSection": "content"
+                    },
+                    "returnHomeText": {
+                        "type": "string",
+                        "uiLabel": "Return Button Text",
+                        "uiSection": "content"
+                    }
+                }
+            },
+            "dataType": "object",
+            "data": {
+                "errorCode": "404",
+                "errorTitle": "Page Not Found",
+                "errorMessage": "The page you are looking for does not exist or has been moved.",
+                "returnHomeText": "Return Home"
+            }
+        },
+        {
+            "id": "theme",
+            "name": "Theme",
+            "description": "Colors, fonts, and border radius.",
+            "required": true,
+            "enabled": true,
+            "schema": {
+                "type": "object",
+                "properties": {
+                    "colors": {
+                        "type": "object",
+                        "uiLabel": "Colors",
+                        "properties": {
+                            "primary": {
+                                "type": "color",
+                                "uiLabel": "Primary Color"
+                            },
+                            "primaryForeground": {
+                                "type": "color",
+                                "uiLabel": "Primary Text"
+                            },
+                            "background": {
+                                "type": "color",
+                                "uiLabel": "Background"
+                            },
+                            "surface": {
+                                "type": "color",
+                                "uiLabel": "Surface"
+                            },
+                            "muted": {
+                                "type": "color",
+                                "uiLabel": "Muted"
+                            },
+                            "border": {
+                                "type": "color",
+                                "uiLabel": "Border"
+                            },
+                            "accent": {
+                                "type": "color",
+                                "uiLabel": "Accent Color"
+                            }
+                        }
+                    },
+                    "typography": {
+                        "type": "object",
+                        "uiLabel": "Typography",
+                        "properties": {
+                            "fontSans": {
+                                "type": "string",
+                                "uiLabel": "Body Font"
+                            },
+                            "fontSerif": {
+                                "type": "string",
+                                "uiLabel": "Heading Font"
+                            }
+                        }
+                    },
+                    "radius": {
+                        "type": "object",
+                        "uiLabel": "Border Radius",
+                        "properties": {
+                            "base": {
+                                "type": "string",
+                                "uiLabel": "Base Radius"
+                            }
+                        }
+                    }
+                }
+            },
+            "dataType": "object",
+            "data": {
+                "colors": {
+                    "primary": "#0A1118",
+                    "primaryForeground": "#ffffff",
+                    "background": "#ffffff",
+                    "surface": "#F7F6F2",
+                    "muted": "#888888",
+                    "border": "#E0DDD8",
+                    "accent": "#C3A370"
+                },
+                "typography": {
+                    "fontSans": "'Inter', sans-serif",
+                    "fontSerif": "'Playfair Display', serif"
+                },
+                "radius": {
+                    "base": "0px"
+                }
+            }
+        }
+    ],
+    "theme": {
+        "data": {
+            "colors": {
+                "primary": "#0A1118",
+                "primaryForeground": "#ffffff",
+                "background": "#ffffff",
+                "surface": "#F7F6F2",
+                "muted": "#888888",
+                "border": "#E0DDD8"
+            },
+            "typography": {
+                "fontSans": "'Inter', sans-serif",
+                "fontSerif": "'Playfair Display', serif"
+            },
+            "radius": {
+                "base": "0px"
+            }
+        }
+    }
+}

@@ -1,0 +1,111 @@
+---
+export interface Props {
+  data: {
+    eyebrow?: string;
+    heading?: string;
+    subtext?: string;
+    items: Array<{
+      image: string;
+      imageAlt?: string;
+      title: string;
+      description?: string;
+    }>;
+  };
+}
+
+const { data } = Astro.props;
+const imgSrc = (path: string) => path?.startsWith('http') ? path : `/${path}`;
+
+const items = data.items || [];
+---
+
+<section class="py-32 px-6 md:px-12 bg-white" id="amenities" data-dr-section="amenities">
+  <div class="max-w-[1400px] mx-auto">
+
+    <!-- Header -->
+    <div class="flex flex-col md:flex-row justify-between items-end mb-16 gap-8">
+      <div>
+        {data.eyebrow && (
+          <div
+            class="text-[10px] font-medium tracking-[0.2em] uppercase text-accent mb-4"
+            data-dr-field="eyebrow"
+          >
+            {data.eyebrow}
+          </div>
+        )}
+        {data.heading && (
+          <h2
+            class="font-serif text-4xl md:text-5xl uppercase"
+            data-dr-field="heading"
+          >
+            {data.heading}
+          </h2>
+        )}
+      </div>
+      {data.subtext && (
+        <p
+          class="text-muted max-w-md font-light leading-relaxed"
+          data-dr-field="subtext"
+        >
+          {data.subtext}
+        </p>
+      )}
+    </div>
+
+    <!-- Editorial Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" data-dr-list="items">
+      {items.map((item, i) => (
+        <div
+          class={`relative h-[450px] group overflow-hidden ${i === 0 || i === 3 ? 'lg:col-span-2' : 'lg:col-span-1'}`}
+          data-dr-list-item
+          data-dr-index={i}
+        >
+          <img
+            src={imgSrc(item.image || 'defaults/default-hero.jpg')}
+            alt={item.imageAlt || item.title}
+            class="absolute inset-0 w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110"
+            data-dr-field="image"
+            loading="lazy"
+          />
+          <div class="absolute inset-0 bg-gradient-to-t from-primary/90 via-primary/20 to-transparent opacity-70 group-hover:opacity-90 transition-opacity duration-500"></div>
+          <div class="absolute bottom-0 left-0 p-10 translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
+            <h3
+              class="font-serif text-3xl text-white mb-3"
+              data-dr-field="title"
+            >
+              {item.title}
+            </h3>
+            {item.description && (
+              <p
+                class="text-white/70 text-sm font-light opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-100"
+                data-dr-field="description"
+              >
+                {item.description}
+              </p>
+            )}
+          </div>
+        </div>
+      ))}
+    </div>
+
+  </div>
+</section>
+
+<script>
+  document.addEventListener('dr:content-updated', function (e: any) {
+    if (e.detail && e.detail.sectionId === 'amenities') {
+      // Amenities list updated — re-apply editorial grid spans
+      const grid = document.querySelector('[data-dr-section="amenities"] [data-dr-list="items"]');
+      if (!grid) return;
+      const cards = grid.querySelectorAll('[data-dr-list-item]');
+      cards.forEach((card, i) => {
+        (card as HTMLElement).classList.remove('lg:col-span-2', 'lg:col-span-1');
+        if (i === 0 || i === 3) {
+          (card as HTMLElement).classList.add('lg:col-span-2');
+        } else {
+          (card as HTMLElement).classList.add('lg:col-span-1');
+        }
+      });
+    }
+  });
+</script>

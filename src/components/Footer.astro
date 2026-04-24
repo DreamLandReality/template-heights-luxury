@@ -1,0 +1,43 @@
+---
+export interface Props {
+  data: {
+    logoText: string;
+    copyright: string;
+    branding?: string;
+    privacyLabel?: string;
+    termsLabel?: string;
+  };
+}
+
+const { data } = Astro.props;
+---
+
+<footer class="bg-primary text-white py-20 border-t border-white/10" data-dr-section="footer">
+  <div class="max-w-[1400px] mx-auto px-6 md:px-12 flex flex-col items-center justify-center text-center gap-8">
+
+    <div class="font-serif text-3xl tracking-widest uppercase text-accent" data-dr-field="logoText">
+      {data.logoText}
+    </div>
+
+    <div class="flex gap-8 text-[10px] tracking-[0.2em] uppercase text-white/50">
+      <a href="#" class="hover:text-white transition-colors duration-300">
+        <span data-dr-field="privacyLabel">
+          {data.privacyLabel || 'Privacy Policy'}
+        </span>
+      </a>
+      <a href="#" class="hover:text-white transition-colors duration-300">
+        <span data-dr-field="termsLabel">
+          {data.termsLabel || 'Terms of Use'}
+        </span>
+      </a>
+    </div>
+
+    <p class="text-[10px] tracking-[0.2em] uppercase text-white/30 mt-4" data-dr-field="copyright">
+      {data.copyright}
+    </p>
+
+    <p class="text-[10px] tracking-[0.2em] uppercase text-white/20">
+      Dream Land Reality
+    </p>
+  </div>
+</footer>
