@@ -8,7 +8,7 @@ import Brochure from '../components/Brochure.astro';
 import Amenities from '../components/Amenities.astro';
 import Testimonials from '../components/Testimonials.astro';
 import ContactForm from '../components/ContactForm.astro';
-import { getSectionData, isSectionEnabled } from '../lib/manifest-loader';
+import { getSectionData, isSectionEnabled, getGateConfig } from '../lib/manifest-loader';
 
 type SeoData = {
   title?: string;
@@ -116,9 +116,10 @@ const brochureData = getSectionData<BrochureData>('brochure');
 const amenitiesData = getSectionData<AmenitiesData>('amenities');
 const testimonialsData = getSectionData<TestimonialsData>('testimonials');
 const contactFormData = getSectionData<ContactFormData>('contact-form');
+const gateConfig = getGateConfig();
 ---
 
-<BaseLayout title={seoData.title || 'Luxury Residences'} seo={seoData} transparentNav={true}>
+<BaseLayout title={seoData.title || 'Luxury Residences'} seo={seoData} transparentNav={true} gateConfig={gateConfig}>
   {isSectionEnabled('hero') && <Hero data={heroData} />}
   {isSectionEnabled('introduction') && <Introduction data={introData} />}
   {isSectionEnabled('media-showcase') && <MediaShowcase data={mediaShowcaseData} />}

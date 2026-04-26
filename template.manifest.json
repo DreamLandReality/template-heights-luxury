@@ -6,6 +6,12 @@
         "bucket": "template-assets",
         "prefix": "templates/heights-luxury"
     },
+    "gate": {
+        "sectionId": "price-unlock",
+        "siteToken": null,
+        "submissionEndpoint": null,
+        "supabaseAnonKey": null
+    },
     "collections": [],
     "pages": [
         {
