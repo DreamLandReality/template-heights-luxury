@@ -380,6 +380,7 @@
         "properties": {
           "heroMediaType": {
             "type": "string",
+            "default": "image",
             "uiLabel": "Media Type",
             "uiWidget": "select",
             "uiSection": "media",
@@ -477,6 +478,7 @@
           },
           "mobileLayout": {
             "type": "string",
+            "default": "fullscreen",
             "uiLabel": "Mobile Layout",
             "uiWidget": "select",
             "uiSection": "layout",
@@ -493,6 +495,7 @@
           },
           "overlayEnabled": {
             "type": "boolean",
+            "default": true,
             "uiLabel": "Enable Overlay",
             "description": "Dark overlay on hero background for text readability",
             "uiSection": "layout"
@@ -675,6 +678,7 @@
           },
           "mediaType": {
             "type": "string",
+            "default": "image",
             "uiLabel": "Media Type",
             "uiWidget": "select",
             "uiSection": "media",
@@ -757,6 +761,7 @@
         "properties": {
           "previewState": {
             "type": "string",
+            "default": "locked",
             "uiLabel": "Preview State",
             "uiWidget": "select",
             "options": [
