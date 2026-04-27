@@ -790,7 +790,7 @@
       "schema": {
         "type": "object",
         "properties": {
-          "previewState": {
+          "state": {
             "type": "string",
             "uiLabel": "Preview State",
             "uiWidget": "select",
@@ -873,12 +873,17 @@
             "type": "string",
             "description": "System Injected — deployment auth token",
             "aiIgnore": true
+          },
+          "supabaseAnonKey": {
+            "type": "string",
+            "description": "System Injected — Supabase anon key",
+            "aiIgnore": true
           }
         }
       },
       "dataType": "object",
       "data": {
-        "previewState": "locked",
+        "state": "locked",
         "eyebrow": "Investment",
         "heading": "Pricing & Floor Plans",
         "subtext": "Register your interest to receive exclusive access to our detailed pricing, payment plans, and comprehensive floor layouts for all property types.",
@@ -1177,6 +1182,11 @@
           "siteToken": {
             "type": "string",
             "description": "System Injected — deployment auth token",
+            "aiIgnore": true
+          },
+          "supabaseAnonKey": {
+            "type": "string",
+            "description": "System Injected — Supabase anon key",
             "aiIgnore": true
           }
         }
