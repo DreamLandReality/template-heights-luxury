@@ -18,11 +18,16 @@
             "supabaseAnonKey": null,
             "actions": [
                 { "id": "price", "mode": "reveal" },
-                { "id": "brochure", "mode": "download" },
-                { "id": "floor-plan", "mode": "reveal" }
+                { "id": "brochure", "mode": "download" }
             ]
         }
     ],
+    "gateActionOwnership": {
+        "lead-capture": {
+            "price": ["price-unlock"],
+            "brochure": ["brochure"]
+        }
+    },
     "stateTypes": {
         "hero.heroMediaType": {
             "type": "enum",
@@ -321,28 +326,28 @@
             },
             "dataType": "object",
             "data": {
-                "title": "The Heights Country Club & Wellness | Emaar",
-                "description": "Discover The Heights Country Club & Wellness — an exclusive sanctuary of refined living by Emaar, where green landscapes form a vibrant and sustainable community.",
+                "title": "Heights Luxury Template",
+                "description": "Discover the Heights Luxury Template — a neutral luxury property showcase for refined living, landscaped surroundings, and premium amenities.",
                 "keywords": [
-                    "The Heights Country Club",
-                    "Emaar",
+                    "heights luxury template",
+                    "luxury property template",
                     "luxury villa",
-                    "Dubai Hills",
+                    "premium community",
                     "wellness community",
                     "sustainable living",
                     "AED 6 million"
                 ],
                 "image": "",
-                "imageAlt": "Aerial view of The Heights Country Club & Wellness by Emaar",
+                "imageAlt": "Aerial view of the Heights Luxury Template property",
                 "locale": "en_AE",
                 "language": "en",
                 "canonicalUrl": null,
                 "metaPixelId": null,
                 "googleAdsId": null,
                 "structuredData": {
-                    "propertyName": "The Heights Country Club & Wellness",
+                    "propertyName": "Heights Luxury Template",
                     "propertyType": "Villa",
-                    "description": "An exclusive sanctuary of refined living by Emaar, where green landscapes form a vibrant and sustainable community.",
+                    "description": "A neutral luxury property showcase where landscaped surroundings form a vibrant and sustainable community.",
                     "url": null,
                     "datePosted": null,
                     "priceRange": {
@@ -352,8 +357,8 @@
                     },
                     "address": {
                         "street": "",
-                        "locality": "Dubai Hills",
-                        "region": "Dubai",
+                        "locality": "Template District",
+                        "region": "Template Region",
                         "postalCode": "",
                         "country": "AE"
                     },
@@ -362,8 +367,8 @@
                         "longitude": null
                     },
                     "developer": {
-                        "name": "Emaar Properties",
-                        "url": "https://www.emaar.com",
+                        "name": "Heights Luxury Template",
+                        "url": null,
                         "logo": null
                     }
                 }
@@ -570,11 +575,11 @@
                 "headlineItalic": "Refined Living",
                 "subtext": "Envisioned as an exclusive retreat lifestyle, where green landscapes come together to form a vibrant and sustainable community.",
                 "backgroundImage": "https://pub-da5fe52c12854625bef20ed173f635f1.r2.dev/shared-defaults/default-hero.jpg",
-                "backgroundImageAlt": "The Heights exterior view",
+                "backgroundImageAlt": "Heights Luxury Template exterior view",
                 "backgroundImageCarousel": [
                     {
                         "src": "https://pub-da5fe52c12854625bef20ed173f635f1.r2.dev/shared-defaults/default-hero.jpg",
-                        "alt": "The Heights exterior view"
+                        "alt": "Heights Luxury Template exterior view"
                     },
                     {
                         "src": "https://pub-da5fe52c12854625bef20ed173f635f1.r2.dev/shared-defaults/default-secondary.jpg",
@@ -714,9 +719,9 @@
                 "heading": "Virtual Tour",
                 "mediaType": "image",
                 "mediaFile": "https://pub-da5fe52c12854625bef20ed173f635f1.r2.dev/shared-defaults/default-secondary.jpg",
-                "mediaAlt": "Virtual tour of The Heights",
+                "mediaAlt": "Virtual tour of the Heights Luxury Template",
                 "iframeUrl": "",
-                "iframeTitle": "The Heights Virtual Tour",
+                "iframeTitle": "Heights Luxury Template Virtual Tour",
                 "caption": ""
             }
         },
@@ -898,7 +903,7 @@
                 "buttonText": "Download PDF",
                 "brochureFile": "",
                 "backgroundImage": "https://pub-da5fe52c12854625bef20ed173f635f1.r2.dev/shared-defaults/default-secondary.jpg",
-                "backgroundImageAlt": "Interior of The Heights"
+                "backgroundImageAlt": "Interior of the Heights Luxury Template"
             }
         },
         {
@@ -1042,13 +1047,13 @@
                 "sectionTitle": "What Our Clients Say",
                 "items": [
                     {
-                        "name": "Sarah Mitchell",
+                        "name": "Template Client One",
                         "photo": null,
                         "text": "The attention to detail and quality of finishes exceeded all expectations. This is truly luxury living at its finest.",
                         "rating": 5
                     },
                     {
-                        "name": "James Chen",
+                        "name": "Template Client Two",
                         "photo": null,
                         "text": "From the first viewing to move-in, the entire experience was seamless. The team's professionalism is unmatched.",
                         "rating": 5
@@ -1164,9 +1169,9 @@
             },
             "dataType": "object",
             "data": {
-                "logoText": "Emaar",
-                "copyright": "2025 Emaar Properties. All rights reserved.",
-                "branding": "Made by Dream La Reality",
+                "logoText": "HEIGHTS",
+                "copyright": "2025 Heights Luxury Template. All rights reserved.",
+                "branding": "Template by Heights Luxury",
                 "privacyLabel": "Privacy Policy",
                 "termsLabel": "Terms of Use"
             }
