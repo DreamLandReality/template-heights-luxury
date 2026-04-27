@@ -6,7 +6,7 @@
 
 // @ts-ignore - JSON import handled by Astro/Vite
 import manifest from '../../template.manifest.json';
-// Inlined from @dreamlr/manifest-loader
+// FORCE UPDATE - Inlined from @dreamlr/manifest-loader
 export interface ManifestSection {
     id: string;
     enabled?: boolean;
@@ -357,5 +357,6 @@ export {
     getAllSections,
     getManifest,
     getGateConfig,
-    getStateTypes
+    getStateTypes,
+    getAllSectionData
 };
