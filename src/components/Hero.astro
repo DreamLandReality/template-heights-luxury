@@ -17,18 +17,14 @@ export interface Props {
 
 const { data } = Astro.props;
 const imgSrc = (path: string) => path?.startsWith('http') ? path : `/${path}`;
-const mediaType = data.heroMediaType || 'image';
 
-const isImage = mediaType === 'image';
-const isCarousel = mediaType === 'carousel';
-const isVideo = mediaType === 'video';
-
+// Server-side: use manifest data for initial render
+// Runtime handles visibility via data-dr-show-when attributes
 const carouselImages = data.backgroundImageCarousel?.length
   ? data.backgroundImageCarousel
   : [{ src: data.backgroundImage || 'defaults/default-hero.jpg', alt: data.backgroundImageAlt || 'Hero' }];
 
 const mobileLayout = data.mobileLayout || 'fullscreen';
-
 const overlayEnabled = data.overlayEnabled !== false;
 ---
 
@@ -48,7 +44,6 @@ const overlayEnabled = data.overlayEnabled !== false;
     <!-- Image Mode -->
     <div
       data-dr-show-when="hero.heroMediaType=image"
-      style={isImage ? '' : 'display:none'}
       class="w-full h-full"
     >
       <img
@@ -66,7 +61,6 @@ const overlayEnabled = data.overlayEnabled !== false;
     <!-- Carousel Mode -->
     <div
       data-dr-show-when="hero.heroMediaType=carousel"
-      style={isCarousel ? '' : 'display:none'}
       class="w-full h-full"
     >
       <div class="hero-carousel w-full h-full relative" data-dr-list="backgroundImageCarousel">
@@ -95,7 +89,6 @@ const overlayEnabled = data.overlayEnabled !== false;
     <!-- Video Mode -->
     <div
       data-dr-show-when="hero.heroMediaType=video"
-      style={isVideo ? '' : 'display:none'}
       class="relative w-full h-full"
     >
       <div
@@ -171,7 +164,7 @@ const overlayEnabled = data.overlayEnabled !== false;
     class="absolute bottom-10 left-1/2 -translate-x-1/2 z-20 flex items-center gap-2"
     id="hero-dots"
     data-dr-show-when="hero.heroMediaType=carousel"
-    style={!isCarousel || carouselImages.length <= 1 ? 'display: none !important;' : ''}
+    style={carouselImages.length <= 1 ? 'display: none !important;' : ''}
   >
     {carouselImages.map((_, i) => (
       <button
@@ -186,7 +179,7 @@ const overlayEnabled = data.overlayEnabled !== false;
   <div
     class="absolute bottom-10 right-8 md:right-12 z-20 font-sans text-[11px] tracking-[0.2em] text-white/30 select-none"
     data-dr-show-when="hero.heroMediaType=carousel"
-    style={!isCarousel || carouselImages.length <= 1 ? 'display: none !important;' : ''}
+    style={carouselImages.length <= 1 ? 'display: none !important;' : ''}
   >
     <span id="hero-current">01</span>&thinsp;/&thinsp;<span id="hero-total">{String(carouselImages.length).padStart(2, '0')}</span>
   </div>
