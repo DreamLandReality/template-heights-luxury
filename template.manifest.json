@@ -1064,7 +1064,7 @@
       "name": "Testimonials",
       "description": "Client testimonials with photos, names, and ratings.",
       "required": false,
-      "enabled": false,
+      "enabled": true,
       "imageSlots": [
         "items.photo"
       ],

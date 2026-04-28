@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import ErrorPage from '../components/ErrorPage.astro';
 import { getSectionData } from '../lib/manifest-loader';
 
 const seoData = getSectionData('seo');
@@ -14,41 +15,5 @@ const minimalSeo = {
 ---
 
 <BaseLayout title="404 - Not Found" seo={minimalSeo}>
-  <div class="h-screen flex flex-col items-center justify-center text-center px-6" data-dr-section="error-page">
-
-    <div class="text-[10px] font-medium tracking-[0.2em] uppercase text-accent mb-8">
-      Error
-    </div>
-
-    <h1
-      class="font-serif text-8xl md:text-9xl text-primary mb-4"
-      data-dr-field="errorCode"
-    >
-      {errorData.errorCode}
-    </h1>
-
-    <p
-      class="text-2xl font-serif text-primary mb-4"
-      data-dr-field="errorTitle"
-    >
-      {errorData.errorTitle}
-    </p>
-
-    <p
-      class="text-muted text-sm mb-12 max-w-md font-light leading-relaxed"
-      data-dr-field="errorMessage"
-    >
-      {errorData.errorMessage}
-    </p>
-
-    <a
-      href="/"
-      class="text-[11px] font-medium tracking-[0.2em] uppercase px-10 py-4 border border-primary text-primary hover:bg-primary hover:text-white transition-colors duration-500"
-    >
-      <span data-dr-field="returnHomeText">
-        {errorData.returnHomeText}
-      </span>
-    </a>
-
-  </div>
+  <ErrorPage data={errorData} />
 </BaseLayout>
